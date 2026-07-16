@@ -1,0 +1,35 @@
+#!/bin/bash
+
+# Conventional Commits format:
+# <type>[optional scope][!]: <description>
+#
+# Types: feat, fix, docs, style, refactor, perf, test, build, ci, chore, revert
+# Examples:
+#   feat: add clipboard parsing
+#   fix(api): correct response handling
+#   feat!: redesign public API
+#   docs: update README
+
+COMMIT_MSG_FILE=$1
+COMMIT_MSG=$(cat "$COMMIT_MSG_FILE")
+
+# Pattern for conventional commits
+PATTERN="^(feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert)(\([a-z0-9_-]+\))?!?: .{1,}"
+
+if ! echo "$COMMIT_MSG" | grep -qE "$PATTERN"; then
+    echo ""
+    echo "❌ Invalid commit message format!"
+    echo ""
+    echo "Expected format: <type>[scope][!]: <description>"
+    echo ""
+    echo "Types: feat, fix, docs, style, refactor, perf, test, build, ci, chore, revert"
+    echo ""
+    echo "Examples:"
+    echo "  feat: add clipboard parsing"
+    echo "  fix(api): correct response handling"
+    echo "  feat!: redesign public API"
+    echo ""
+    echo "Your message: $COMMIT_MSG"
+    echo ""
+    exit 1
+fi

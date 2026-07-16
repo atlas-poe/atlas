@@ -1,0 +1,44 @@
+#!/bin/bash
+
+echo "🔍 Running pre-push checks..."
+echo ""
+
+# Track if any check fails
+FAILED=0
+
+# Format check
+echo "📝 Checking formatting..."
+if ! cargo fmt --all -- --check; then
+    echo "❌ Formatting check failed. Run: cargo fmt"
+    FAILED=1
+else
+    echo "✅ Formatting OK"
+fi
+echo ""
+
+# Clippy
+echo "📎 Running clippy..."
+if ! cargo clippy --workspace -- -D warnings; then
+    echo "❌ Clippy check failed. Fix warnings above."
+    FAILED=1
+else
+    echo "✅ Clippy OK"
+fi
+echo ""
+
+# Tests
+echo "🧪 Running tests..."
+if ! cargo test --workspace; then
+    echo "❌ Tests failed. Fix failing tests above."
+    FAILED=1
+else
+    echo "✅ Tests OK"
+fi
+echo ""
+
+if [ $FAILED -eq 1 ]; then
+    echo "❌ Pre-push checks failed. Fix issues before pushing."
+    exit 1
+fi
+
+echo "✅ All pre-push checks passed!"
