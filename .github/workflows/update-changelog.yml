@@ -15,20 +15,16 @@ jobs:
           fetch-depth: 0
 
       - name: Install git-cliff
-        uses: orhun/git-cliff-action@v4
+        uses: taiki-e/install-action@git-cliff
+
+      - name: Generate changelog entry
         id: cliff
-        with:
-          config: .cliff.toml
-          args: --latest --strip header
+        run: |
+          CONTENT=$(git-cliff --latest --strip header)
+          echo "$CONTENT" > /tmp/cliff-entry.md
 
       - name: Update CHANGELOG.md
-        if: steps.cliff.outputs.content != ''
-        env:
-          CLIFF_CONTENT: ${{ steps.cliff.outputs.content }}
         run: |
-          # Use env var to avoid shell escaping issues
-          echo "$CLIFF_CONTENT" > /tmp/cliff-entry.md
-          
           # Use awk to insert the entry under [Unreleased]
           awk '
             /^## \[Unreleased\]/ {
