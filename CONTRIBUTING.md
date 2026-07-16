@@ -2,7 +2,17 @@
 
 Thank you for your interest in contributing to Atlas!
 
+Please note that this project is released with a [Code of Conduct](CODE_OF_CONDUCT.md). By participating in this project you agree to abide by its terms.
+
 ## Getting Started
+
+### Prerequisites
+
+- Rust toolchain (stable) - [Install Rust](https://www.rust-lang.org/tools/install)
+- Git
+- GitHub account
+
+### Setup
 
 1. Fork and clone the repository
 2. Run the setup script to install git hooks:
@@ -13,6 +23,10 @@ Thank you for your interest in contributing to Atlas!
    ```bash
    git checkout -b feat/my-new-feature
    ```
+
+### Project Structure
+
+Atlas uses a Rust workspace with modular crate architecture. See [Architecture](docs/architecture.md) for details on the project structure and design decisions.
 
 ## Development Workflow
 
@@ -83,6 +97,10 @@ When you merge a PR to `main` with conventional commits:
 - Use `cargo fmt` to format code
 - Run `cargo clippy` to catch common mistakes
 - Write tests for new functionality
+
+## Security
+
+If you discover a security vulnerability, please follow our [Security Policy](SECURITY.md) for responsible disclosure.
 
 ## Questions?
 
