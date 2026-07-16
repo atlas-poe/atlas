@@ -12,7 +12,7 @@ jobs:
       pull-requests: write
     steps:
       - name: Add changed files to PR body
-        uses: actions/github-script@v7
+        uses: actions/github-script@v9
         with:
           script: |
             const pr = context.payload.pull_request;
@@ -68,9 +68,9 @@ jobs:
             // Build the replacement content
             const replacement = `## Changed Files\n\n${summary}\n\n<details>\n<summary>View all changed files</summary>\n\n${fileList}\n</details>`;
             
-            // Replace the section
+            // Replace the section (account for blank line between heading and comment)
             const newBody = body.replace(
-              /## Changed Files\n<!-- AUTO-INSERT: This section is populated by GitHub Actions -->/,
+              /## Changed Files\n+\s*<!-- AUTO-INSERT: This section is populated by GitHub Actions -->/,
               replacement
             );
             

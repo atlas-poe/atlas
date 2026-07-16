@@ -5,3 +5,31 @@ resolver = "3"
 [workspace.lints.clippy]
 unwrap_used = "warn"
 expect_used = "warn"
+
+# =============================================================================
+# Profiles
+# =============================================================================
+# Profiles control how your code is compiled. Use `cargo build --profile <name>`.
+# Default: `cargo build` uses `dev`, `cargo build --release` uses `release`.
+
+[profile.dev]
+# Used during development (default for `cargo build`)
+opt-level = 1           # Optimization level: 0=fast compile, 3=fast runtime. 1 balances both.
+debug = true            # Include debug symbols for debugging with gdb/lldb.
+debug-assertions = true # Enable assert!() macros. Disabled in release for performance.
+overflow-checks = true  # Check for integer overflow. Disable in release for speed.
+incremental = true      # Cache compilation artifacts for faster rebuilds.
+
+[profile.release]
+# Used for production builds (`cargo build --release`)
+opt-level = 3            # Maximum optimization. Slowest compile, fastest runtime.
+debug = false            # No debug symbols. Reduces binary size.
+debug-assertions = false # Disable assert!() for performance.
+overflow-checks = false  # No overflow checks for performance.
+lto = true               # Link-Time Optimization. true=smaller/slower compile, false=faster compile.
+strip = true             # Strip debug symbols from binary. true=smaller binary.
+
+[profile.test]
+# Used for `cargo test`
+opt-level = 0 # Fast compilation for quick test runs.
+debug = true  # Keep debug symbols for test backtraces.
