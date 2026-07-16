@@ -1,0 +1,76 @@
+name: Label PR by Branch
+
+on:
+  pull_request:
+    types: [opened, renamed]
+
+jobs:
+  label:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - name: Detect branch type and add label
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const branch = context.payload.pull_request.head.ref;
+            const prNumber = context.payload.pull_request.number;
+            
+            const labelMap = {
+              'feat/': 'feature',
+              'fix/': 'bug',
+              'docs/': 'documentation',
+              'chore/': 'chore',
+              'refactor/': 'refactor',
+              'test/': 'test',
+              'ci/': 'ci'
+            };
+            
+            let label = null;
+            for (const [prefix, labelName] of Object.entries(labelMap)) {
+              if (branch.startsWith(prefix)) {
+                label = labelName;
+                break;
+              }
+            }
+            
+            if (label) {
+              // Ensure label exists
+              try {
+                await github.rest.issues.getLabel({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  name: label
+                });
+              } catch (e) {
+                const colors = {
+                  'feature': 'a2eeef',
+                  'bug': 'd73a4a',
+                  'documentation': '0075ca',
+                  'chore': 'e4e669',
+                  'refactor': '1d76db',
+                  'test': '0e8a16',
+                  'ci': 'bfdadc'
+                };
+                await github.rest.issues.createLabel({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  name: label,
+                  color: colors[label] || 'ededed'
+                });
+              }
+              
+              // Add label to PR
+              await github.rest.issues.addLabels({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: prNumber,
+                labels: [label]
+              });
+              
+              console.log(`Added label "${label}" to PR #${prNumber} (branch: ${branch})`);
+            } else {
+              console.log(`No label match for branch: ${branch}`);
+            }
