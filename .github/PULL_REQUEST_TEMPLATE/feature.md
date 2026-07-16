@@ -6,6 +6,10 @@
 
 <!-- Why was this feature necessary? What value does it provide? -->
 
+## Changed Files
+
+<!-- AUTO-INSERT: This section is populated by GitHub Actions -->
+
 ## Design Decisions
 
 <!-- What alternatives were considered? Why was this implementation chosen? -->

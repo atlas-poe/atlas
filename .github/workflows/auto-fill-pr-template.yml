@@ -1,0 +1,180 @@
+name: Auto-fill PR Template
+
+on:
+  pull_request:
+    types: [opened]
+
+jobs:
+  fill-template:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - name: Auto-fill PR body based on branch
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const pr = context.payload.pull_request;
+            const branch = pr.head.ref;
+            const body = (pr.body || '').trim();
+            
+            // Only fill if body is empty or still has the default template placeholder
+            const hasTemplate = body.includes('## Summary') || 
+                               body.includes('## What') ||
+                               body.length > 50;
+            
+            if (hasTemplate) {
+              console.log('PR already has template content, skipping');
+              return;
+            }
+            
+            // Map branch prefixes to templates
+            const templates = {
+              'feat/': `## Summary
+
+<!-- What feature was implemented? One sentence description. -->
+
+## Why
+
+<!-- Why was this feature necessary? What value does it provide? -->
+
+## Changed Files
+
+<!-- AUTO-INSERT: This section is populated by GitHub Actions -->
+
+## Design Decisions
+
+<!-- What alternatives were considered? Why was this implementation chosen? -->
+
+## Testing
+
+- [ ] Unit tests cover new functionality
+- [ ] Edge cases are handled
+- [ ] \`cargo clippy\` passes with no warnings
+
+## Related Issues
+
+<!-- Link any related issues: Closes #123, Relates to #456 -->
+
+## What I Learned
+
+<!-- Every PR must identify at least one new concept learned -->`,
+              
+              'fix/': `## Summary
+
+<!-- What bug was fixed? One sentence description. -->
+
+## Bug Description
+
+<!-- Describe the bug in detail -->
+
+## Root Cause
+
+<!-- What caused the bug? -->
+
+## Reproduction Steps
+
+1. 
+2. 
+3. 
+
+## Changed Files
+
+<!-- AUTO-INSERT: This section is populated by GitHub Actions -->
+
+## Testing
+
+- [ ] Added unit tests that reproduce the bug
+- [ ] Verified fix resolves the original issue
+- [ ] All existing tests still pass
+
+## Related Issues
+
+<!-- Link any related issues: Closes #123 -->
+
+## What I Learned
+
+<!-- Every PR must identify at least one new concept learned -->`,
+              
+              'docs/': `## Summary
+
+<!-- What documentation was added or updated? -->
+
+## Why
+
+<!-- Why is this documentation needed? -->
+
+## Changed Files
+
+<!-- AUTO-INSERT: This section is populated by GitHub Actions -->
+
+## Reviewer Checklist
+
+- [ ] Accuracy - Is the information correct?
+- [ ] Clarity - Is it easy to understand?
+- [ ] Links - Do all links work correctly?
+
+## Related Issues
+
+<!-- Link any related issues: Closes #123 -->
+
+## What I Learned
+
+<!-- Every PR must identify at least one new concept learned -->`,
+              
+              'chore/': `## Summary
+
+<!-- What maintenance task was performed? -->
+
+## Why
+
+<!-- Why was this maintenance needed? -->
+
+## Changed Files
+
+<!-- AUTO-INSERT: This section is populated by GitHub Actions -->
+
+## Impact
+
+- [ ] No functional changes
+- [ ] Dependencies updated (no breaking changes)
+
+## Verification
+
+- [ ] \`cargo build\` succeeds
+- [ ] \`cargo test\` passes
+- [ ] CI pipeline passes
+
+## Related Issues
+
+<!-- Link any related issues: Closes #123 -->
+
+## What I Learned
+
+<!-- Every PR must identify at least one new concept learned -->`
+            };
+            
+            // Find matching template
+            let template = null;
+            for (const [prefix, tpl] of Object.entries(templates)) {
+              if (branch.startsWith(prefix)) {
+                template = tpl;
+                break;
+              }
+            }
+            
+            if (!template) {
+              console.log(`No template match for branch: ${branch}`);
+              return;
+            }
+            
+            // Update PR body
+            await github.rest.pulls.update({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: pr.number,
+              body: template
+            });
+            
+            console.log(`Auto-filled PR #${pr.number} with template for branch: ${branch}`);

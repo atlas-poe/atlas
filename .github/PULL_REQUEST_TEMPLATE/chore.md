@@ -6,11 +6,9 @@
 
 <!-- Why was this maintenance needed? What problem does it prevent or solve? -->
 
-## What Changed
+## Changed Files
 
-<!-- List the specific changes made -->
-
-- 
+<!-- AUTO-INSERT: This section is populated by GitHub Actions -->
 
 ## Impact
 
