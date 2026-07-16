@@ -10,7 +10,7 @@ jobs:
     permissions:
       contents: write
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           fetch-depth: 0
 
@@ -22,33 +22,30 @@ jobs:
           args: --latest --strip header
 
       - name: Update CHANGELOG.md
+        if: steps.cliff.outputs.content != ''
+        env:
+          CLIFF_CONTENT: ${{ steps.cliff.outputs.content }}
         run: |
-          # Get the latest entry
-          ENTRY="${{ steps.cliff.outputs.content }}"
+          # Use env var to avoid shell escaping issues
+          echo "$CLIFF_CONTENT" > /tmp/cliff-entry.md
           
-          if [ -z "$ENTRY" ]; then
-            echo "No changes to add to changelog"
-            exit 0
-          fi
-          
-          # Read existing changelog
-          CONTENT=$(cat CHANGELOG.md)
-          
-          # Find the line number of "## [Unreleased]" section content
-          # and insert the new entry after it
-          NEW_CONTENT=$(echo "$CONTENT" | awk -v entry="$ENTRY" '
-            /^## \[Unreleased\]/ { 
+          # Use awk to insert the entry under [Unreleased]
+          awk '
+            /^## \[Unreleased\]/ {
               print
               getline
               if ($0 != "") print
               print ""
-              print entry
+              while ((getline line < "/tmp/cliff-entry.md") > 0) {
+                print line
+              }
+              close("/tmp/cliff-entry.md")
               next
             }
             { print }
-          ')
+          ' CHANGELOG.md > /tmp/changelog-new.md
           
-          echo "$NEW_CONTENT" > CHANGELOG.md
+          mv /tmp/changelog-new.md CHANGELOG.md
 
       - name: Commit changelog
         run: |
