@@ -72,9 +72,25 @@ All checks must pass before you can push.
 
 1. Ensure your branch is up to date with `main`
 2. Push your changes and create a pull request
-3. Fill out the PR template
+3. Select the appropriate PR template (see Branch Naming below)
 4. Wait for CI checks to pass
 5. Request a review
+
+#### Branch Naming
+
+Branch names determine PR labels automatically:
+
+| Branch Prefix | Label | Template |
+|---------------|-------|----------|
+| `feat/` | `feature` | Feature implementation |
+| `fix/` | `bug` | Bug fix |
+| `docs/` | `documentation` | Documentation changes |
+| `chore/` | `chore` | Maintenance tasks |
+| `refactor/` | `refactor` | Code refactoring |
+| `test/` | `test` | Test additions/updates |
+| `ci/` | `ci` | CI/CD changes |
+
+Example: `feat/clipboard-parsing` → auto-labeled `feature`
 
 ## Release Process
 
