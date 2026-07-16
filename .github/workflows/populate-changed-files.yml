@@ -16,7 +16,8 @@ jobs:
         with:
           script: |
             const pr = context.payload.pull_request;
-            const body = pr.body || '';
+            // Normalize line endings (GitHub returns \r\n)
+            const body = (pr.body || '').replace(/\r\n/g, '\n');
             
             // Skip if no Changed Files section
             if (!body.includes('## Changed Files')) {
