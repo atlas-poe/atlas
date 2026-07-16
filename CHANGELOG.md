@@ -2,9 +2,6 @@
 
 All notable changes to Atlas will be documented in this file.
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
-and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
-
 ## [Unreleased]
 
 ### Added
@@ -15,19 +12,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Git hooks for commit message validation and pre-push checks
 - Contributing guide with development workflow documentation
 - MIT License
+- PR templates for documentation, features, fixes, and chores
+- GitHub Actions for auto-labeling PRs and populating changed files
+- Architecture documentation
 
 ### Changed
 
 - Removed release workflow until binary target exists
-
-## [0.1.0] - 2026-07-15
-
-### Added
-
-- Initial commit with project structure
-- README with project description
-- Rust toolchain configuration
-- AI agent instructions (AGENTS.md)
 
 ---
 
