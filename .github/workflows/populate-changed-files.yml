@@ -1,0 +1,101 @@
+name: Populate Changed Files
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+
+jobs:
+  update-pr-body:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - name: Add changed files to PR body
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const pr = context.payload.pull_request;
+            const body = pr.body || '';
+            
+            // Skip if no Changed Files section
+            if (!body.includes('## Changed Files')) {
+              console.log('No "## Changed Files" section found, skipping');
+              return;
+            }
+            
+            // Get changed files
+            const { data: files } = await github.rest.pulls.listFiles({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: pr.number,
+              per_page: 100
+            });
+            
+            if (files.length === 0) {
+              console.log('No changed files found');
+              return;
+            }
+            
+            // Build file list with ASCII status indicators
+            const statusLabel = {
+              added: '[+]',
+              modified: '[~]',
+              removed: '[-]'
+            };
+            
+            let fileList = '';
+            for (const file of files) {
+              const marker = statusLabel[file.status] || '   ';
+              const size = file.additions + file.deletions > 0 
+                ? ` (+${file.additions} -${file.deletions})` 
+                : '';
+              fileList += `${marker} \`${file.filename}\`${size}\n`;
+            }
+            
+            // Count summary
+            const added = files.filter(f => f.status === 'added').length;
+            const modified = files.filter(f => f.status === 'modified').length;
+            const removed = files.filter(f => f.status === 'removed').length;
+            
+            let summary = `**${files.length} file${files.length === 1 ? '' : 's'} changed**`;
+            const parts = [];
+            if (added > 0) parts.push(`+${added}`);
+            if (modified > 0) parts.push(`~${modified}`);
+            if (removed > 0) parts.push(`-${removed}`);
+            if (parts.length > 0) summary += ` (${parts.join(', ')})`;
+            
+            // Build the replacement content
+            const replacement = `## Changed Files\n\n${summary}\n\n<details>\n<summary>View all changed files</summary>\n\n${fileList}\n</details>`;
+            
+            // Replace the section
+            const newBody = body.replace(
+              /## Changed Files\n<!-- AUTO-INSERT: This section is populated by GitHub Actions -->/,
+              replacement
+            );
+            
+            if (newBody === body) {
+              console.log('Could not find replacement target, trying alternate pattern');
+              // Try alternate: just find the section and append after it
+              const altBody = body.replace(
+                /(## Changed Files\n)/,
+                `$1\n${summary}\n\n<details>\n<summary>View all changed files</summary>\n\n${fileList}\n</details>\n`
+              );
+              if (altBody !== body) {
+                await github.rest.pulls.update({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  pull_number: pr.number,
+                  body: altBody
+                });
+                console.log('Updated PR body with alternate pattern');
+              }
+            } else {
+              await github.rest.pulls.update({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                pull_number: pr.number,
+                body: newBody
+              });
+              console.log('Updated PR body with changed files');
+            }

@@ -6,11 +6,9 @@
 
 <!-- Why is this documentation needed? What gap does it fill? -->
 
-## What Changed
+## Changed Files
 
-<!-- List the specific files or sections that were added/modified -->
-
-- 
+<!-- AUTO-INSERT: This section is populated by GitHub Actions -->
 
 ## Reviewer Checklist
 

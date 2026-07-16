@@ -18,6 +18,10 @@
 2. 
 3. 
 
+## Changed Files
+
+<!-- AUTO-INSERT: This section is populated by GitHub Actions -->
+
 ## Fix
 
 <!-- What was changed to fix the bug? Why this approach? -->
