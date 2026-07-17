@@ -65,7 +65,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for details on the release process.
 - CI/CD pipeline with check, test, clippy, and format jobs
 - Git hooks for commit message validation and pre-push checks
 - Contributing guide with development workflow documentation
-- MIT License
+- CC BY-NC-SA 4.0 License
 - PR templates for documentation, features, fixes, and chores
 - GitHub Actions for auto-labeling PRs and populating changed files
 - Architecture documentation
