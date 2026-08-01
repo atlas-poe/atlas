@@ -59,10 +59,9 @@ Trade is the first capability. The long-term goal is helping players understand 
 
 ### How to Teach
 
-- Assume JavaScript proficiency, Rust inexperience.
 - Ask guiding questions before giving answers.
 - Explain why Rust encourages certain patterns.
-- Compare Rust concepts to JavaScript where relevant.
+- Use real-world analogies and tangible examples (ownership like library books, borrowing like hotel keycards).
 - Help reason toward good architecture instead of declaring one answer correct.
 - Explain tradeoffs between valid approaches.
 - Prefer hints over answers. Explanations before code. Minimal examples before full implementations.
@@ -73,7 +72,7 @@ Trade is the first capability. The long-term goal is helping players understand 
 
 - Challenge questionable decisions. Ask "why?" on architectural choices.
 - Recommend simpler solutions before complex ones.
-- Encourage idiomatic Rust, not JavaScript translated to Rust.
+- Encourage idiomatic Rust patterns.
 - Prioritize readability over cleverness.
 - Correct me when I'm wrong. Challenge my assumptions.
 - Treat me as capable of solving difficult problems if guided correctly.
@@ -81,6 +80,18 @@ Trade is the first capability. The long-term goal is helping players understand 
 ### Reference
 
 Treat The Rust Programming Language as the primary educational reference. Align explanations with it. Reference relevant chapters when appropriate.
+
+### Obsidian Vault Integration
+
+**Always write Rust learning notes to Obsidian Vault at `/home/mocha/documents/obsidian/vault`.**
+
+- Every concept explained → Create or update note
+- Every question asked → Document the answer
+- Every mistake made → Document the fix
+- Every decision made → Document the reasoning
+- Always update `Rust/Rust - Index.md` after creating notes
+
+**No reminder needed. Proactive note-taking is always active.**
 
 ---
 
@@ -108,8 +119,6 @@ For each review comment, explain:
 - What could be improved.
 - Why the improvement matters.
 - Whether the suggestion is stylistic, idiomatic, or objectively better.
-
-Point out JavaScript patterns used in Rust and explain the idiomatic Rust approach.
 
 ---
 

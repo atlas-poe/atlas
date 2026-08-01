@@ -1,0 +1,216 @@
+{
+    "result": [
+        {
+            "id": "bdca49e362322f067fa50fd38b77e958134754e8f0931781b308a6cef8860c77",
+            "listing": {
+                "method": "psapi",
+                "indexed": "2026-07-14T22:36:37Z",
+                "stash": {
+                    "name": "~b/o 99999 mirror",
+                    "x": 6,
+                    "y": 0
+                },
+                "price": {
+                    "type": "~b/o",
+                    "amount": 99999,
+                    "currency": "mirror"
+                },
+                "account": {
+                    "name": "bertowsky#2919",
+                    "online": {
+                        "league": "Runes of Aldur"
+                    },
+                    "lastCharacterName": "jezusekchytrusek",
+                    "language": "en_US",
+                    "realm": "poe2"
+                },
+                "whisper": "@jezusekchytrusek Hi, I would like to buy your Polcirkeln Sapphire Ring listed for 99999 mirror in Runes of Aldur (stash tab \"~b/o 99999 mirror\"; position: left 7, top 1)"
+            },
+            "item": {
+                "realm": "poe2",
+                "verified": true,
+                "w": 1,
+                "h": 1,
+                "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUmluZ3MvVW5pcXVlcy9Qb2xjaXJrZWxuIiwidyI6MSwiaCI6MSwic2NhbGUiOjEsInJlYWxtIjoicG9lMiJ9XQ/dc74bcffd7/Polcirkeln.png",
+                "league": "Runes of Aldur",
+                "id": "bdca49e362322f067fa50fd38b77e958134754e8f0931781b308a6cef8860c77",
+                "name": "Polcirkeln",
+                "typeLine": "Sapphire Ring",
+                "baseType": "Sapphire Ring",
+                "rarity": "Unique",
+                "ilvl": 80,
+                "identified": true,
+                "corrupted": true,
+                "properties": [
+                    {
+                        "name": "Ring",
+                        "values": [],
+                        "displayMode": 0,
+                        "type": 109
+                    }
+                ],
+                "requirements": [
+                    {
+                        "name": "Level",
+                        "values": [
+                            [
+                                "12",
+                                0
+                            ]
+                        ],
+                        "displayMode": 0,
+                        "type": 62
+                    }
+                ],
+                "enchantMods": [
+                    "+12 to [Dexterity|Dexterity]"
+                ],
+                "implicitMods": [
+                    "+21% to [Resistances|Cold Resistance]"
+                ],
+                "explicitMods": [
+                    {
+                        "description": "25% increased [Cold] Damage",
+                        "hash": "stat.explicit.stat_3291658075",
+                        "mods": [
+                            {
+                                "magnitudes": [
+                                    {
+                                        "min": "20",
+                                        "max": "30"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "description": "+45 to maximum Mana",
+                        "hash": "stat.explicit.stat_1050105434",
+                        "mods": [
+                            {
+                                "magnitudes": [
+                                    {
+                                        "min": "40",
+                                        "max": "60"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "description": "+14 to [Strength|Strength]",
+                        "hash": "stat.explicit.stat_4080418644",
+                        "mods": [
+                            {
+                                "magnitudes": [
+                                    {
+                                        "min": "10",
+                                        "max": "15"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "description": "Enemies [Chill|Chilled] by your [HitDamage|Hits] can be [Shatter|Shattered] as though [Frozen]",
+                        "hash": "stat.explicit.stat_3119292058",
+                        "mods": [
+                            {
+                                "magnitudes": [
+                                    {
+                                        "min": "1",
+                                        "max": "1"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "flavourText": [
+                    "I rule the north\r",
+                    "A legacy earned\r",
+                    "Time and time again\r",
+                    "Sing Meginord's song!"
+                ],
+                "frameType": 3,
+                "frameTypeId": "Unique",
+                "extended": {
+                    "mods": {
+                        "implicit": [
+                            {
+                                "name": "",
+                                "tier": "",
+                                "level": 15,
+                                "magnitudes": [
+                                    {
+                                        "hash": "implicit.stat_4220027924",
+                                        "min": "20",
+                                        "max": "30"
+                                    }
+                                ]
+                            }
+                        ],
+                        "enchant": [
+                            {
+                                "name": "",
+                                "tier": "",
+                                "level": 1,
+                                "magnitudes": [
+                                    {
+                                        "hash": "enchant.stat_3261801346",
+                                        "min": "10",
+                                        "max": "15"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    "hashes": {
+                        "explicit": [
+                            [
+                                "explicit.stat_3291658075",
+                                [
+                                    1
+                                ]
+                            ],
+                            [
+                                "explicit.stat_1050105434",
+                                [
+                                    0
+                                ]
+                            ],
+                            [
+                                "explicit.stat_4080418644",
+                                [
+                                    2
+                                ]
+                            ],
+                            [
+                                "explicit.stat_3119292058",
+                                [
+                                    3
+                                ]
+                            ]
+                        ],
+                        "implicit": [
+                            [
+                                "implicit.stat_4220027924",
+                                [
+                                    0
+                                ]
+                            ]
+                        ],
+                        "enchant": [
+                            [
+                                "enchant.stat_3261801346",
+                                [
+                                    0
+                                ]
+                            ]
+                        ]
+                    }
+                }
+            }
+        }
+    ]
+}

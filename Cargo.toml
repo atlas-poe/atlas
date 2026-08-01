@@ -1,5 +1,5 @@
 [workspace]
-members = ["crates/atlas-core"]
+members = ["crates/atlas-core", "crates/atlas-trade"]
 resolver = "3"
 
 [workspace.lints.clippy]
